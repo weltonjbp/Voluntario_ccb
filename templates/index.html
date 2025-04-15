@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scanner de Folhas de Presença</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8d7x1z5l5e5c5e5e5e5e5e5e5e5e5e5e5e" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Envio de Folhas de Presença</h1>
+    </header>
+    <section class="alert-section">
+      <div class="alert">
+        ⚠️ Ignorar vias amarelas e carbono. Apenas folhas brancas.
+      </div>
+    </section>
+    <form id="uploadForm" method="POST" action="/generate-pdf" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="house">Casa de Oração:</label>
+        <input type="text" id="house" name="house" required>
+      </div>
+      <div class="form-group">
+        <label for="month">Ano Mês de Competência:</label>
+        <input type="month" id="month" name="month" required>
+      </div>
+      <div class="form-group">
+        <label for="days">Período de Dias:</label>
+        <input type="text" id="days" name="days" placeholder="Ex: 10 a 17" required>
+      </div>
+      <div id="categories">
+        <div class="category-group" data-category-index="0">
+          <div class="form-group">
+            <label>Livro:</label>
+            <input type="text" class="category-name" name="category_name_0" required>
+          </div>
+          <div class="form-group">
+            <label>Imagens da Livro:</label>
+            <input type="file" class="category-images" name="category_images_0" multiple accept="image/*">
+          </div>
+          <div class="camera-controls">
+            <video class="camera-preview" autoplay playsinline style="display: none;"></video>
+            <button type="button" class="capture-button">Capturar Câmera</button>
+            <canvas class="captured-image" style="display: none;"></canvas>
+            <button type="button" class="confirm-capture-button" style="display: none;">Confirmar Captura</button>
+            <ul class="captured-image-list"></ul>
+            <input type="hidden" class="captured-images-data" name="captured_images_0" value="[]">
+          </div>
+        </div>
+      </div>
+      <button type="button" id="addCategory">Adicionar Livro</button>
+      <button type="submit" id="gerarPdfButton">Gerar PDF</button>
+    </form>
+    <div id="preview"></div>
+  </div>
+
+  <!-- Modal de Câmera -->
+  <div id="cameraModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Captura de Imagem</h2>
+      <video id="modalCameraPreview" autoplay playsinline></video>
+      <canvas id="modalCapturedImage" style="display: none;"></canvas>
+      <div class="modal-controls">
+        <button type="button" id="modalCaptureButton">Capturar</button>
+        <button type="button" id="modalCancelButton">Cancelar</button>
+        <button type="button" id="modalConfirmButton" style="display: none;">Confirmar</button>
+      </div>
+      <div id="modalPreviewList"></div>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    
+  </script>
+</body>
+</html>
